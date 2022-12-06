@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package="genproto/user_crud";
+
+message User {
+    string first_name = 1;
+    string last_name = 2;
+    int32 age = 3;
+    string phone_number = 4;
+}
+
+message IdUser {
+    int32 id = 1;
+}
+
+message GetAllUsersParams {
+    int32 limit = 1;
+    int32 page = 2;
+    string search = 3;
+}
+
+message GetAllUsersResponse {
+    repeated User users = 1;
+    int32 count = 2;
+}
+
+message Empty {
+
+}
+
+service UserCrud {
+    rpc Create(User) returns (User);
+    rpc Get(IdUser) returns (User);
+    rpc GetAll(GetAllUsersParams) returns (GetAllUsersResponse);
+    rpc Update(User) returns (User);
+    rpc Delete(IdUser) returns (Empty);
+}
